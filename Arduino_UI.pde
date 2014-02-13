@@ -42,7 +42,13 @@ r1.graphSpeed=1;
 
 float inpt = 3.35;//random(4.75,5.2); // Tester
 r1.input(inpt);
-r1.textContent(inpt + " v  Speed: " + r1.graphSpeed);
+
+
+
+
+String formatted_Inpt = String.format("%.2f", inpt);
+
+r1.textContent(formatted_Inpt + " v");
 
 
 
@@ -97,8 +103,7 @@ line(0,height/2,width,height/2); //  Horizontal
 }
 
 
-
-
+ 
 
 // INCOMPLETE!!!
 public class region2 {
@@ -107,17 +112,6 @@ public class region2 {
   void input(float i){ //must be a value 0-5 for voltage
     
   
-    
-    if (rXval_1 == width/2){
-        rXval_1 = 0;
-        refresh();
-      }
-      
-    stroke(255);
-    
-    float interval= (height/2)/5;
-    ellipse(rXval_1, (height/2) -(i*interval), 3, 3);
-    rXval_1 = rXval_1 +1;
     
   }
   
