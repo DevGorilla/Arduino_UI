@@ -3,7 +3,8 @@
 // Class Object Delcarations
 region1 r1 = new region1(); 
 region2 r2 = new region2();
-
+region3 r3 = new region3();
+region4 r4 = new region4();
 // *** *** *** *** *** ***
 
 float rXval_1;
@@ -13,13 +14,13 @@ int test= 0;
 
 void setup()
 { 
-size(1000,500); // Must be divisable by 5
-//background(0);
+  size(1000,500); // Must be divisable by 5
+  //background(0);
 
-centerGuideLines(127,255,0);
+  centerGuideLines(127,255,0);
 
-r1.refresh();
-r2.initialize(); // Initializes Constant Values
+  r1.refresh();
+  r2.initialize(); // Initializes Constant Values
 
 }
 
@@ -33,13 +34,11 @@ void draw()
 stroke(127,255,0); //Green
 strokeWeight(2);
 
-
-
 r1.highAlert= 5.0;
 r1.lowAlert= 3.2;
 r1.graphSpeed=1;
 
-float inpt = 3.35;//random(4.75,5.2); // Tester
+float inpt = random(3.300,3.330); // Tester
 r1.input(inpt);
 
 
@@ -62,35 +61,61 @@ r2.createBar(0,test,600,2,0);
 r2.createBar(1,test,700,2,0); //int BarNumber, float i, float maxVal,int inputDecplace, int maxDecPlace)
 r2.createBar(2,test,800,2,0);
 r2.createBar(3,test,900,2,0);
-r2.createBar(4,test,1000,2,0);
-r2.createBar(5,test,1100,2,0);
-r2.createBar(6,test,1200,2,0);
+
+float test1 = random(900,901.5000000000);
+r2.createBar(4,test1,1000,2,0);
+r2.createBar(5,test1,1100,2,0);
+r2.createBar(6,test1,1200,2,0);
 
 
 r2.textContent("        SENSOR READINGS");
 
+r3.boolBrick(9, false,"test 123");
+r3.boolBrick(7, true,"test 123");
+r3.boolBrick(5, true,"TestSwitch 04");
+r3.boolBrick(4, true,"TestSwitch 03");
+r3.boolBrick(2, false,"TestSwitch 02");
+r3.boolBrick(0, true,"TestSwitch 01");
 
+r4.test();
 
-
-
-//rect(startingX  + (rectWidth * 1) + (rectInterval * 1), rectY_start,rectWidth,rectLength);
-//r2.bar1(5.5,1024);
-
-
-
-
-// rect(startingX  + (rectWidth * 4) + (rectInterval * 4), rectY_start,rectWidth,rectLength);
-///r2.bar1(5.5,1024);
-
-
-// CENTER GUIDELINES
-//stroke(127,255,0); //Green
-//strokeWeight(2);
-//line(width/2,0,width/2,height); //   Vertical 
-//line(0,height/2,width,height/2); //  Horizontal
-
-// MUST BE LAST, places over All region backgrounds
+// *** *** *** *** *** *** ***
 centerGuideLines(127,255,0);
+}
+
+
+
+
+public class region4{
+
+ float midVertLine = width/2;
+ float midHorizonline= height/2;
+ 
+ void test(){
+ 
+   noStroke();
+  fill(255,0,0);
+  rect(width/2,height/2,width/2,height/4);
+  fill(0);
+  rect(width/2,height *.75,width/2,height/4);
+ 
+  
+ }
+  
+  
+
+  
+  
+  void refreshTotal(){
+  
+    fill(0,0,0);
+    rect(width/2,height/2,width/2,height/2);
+  
+  }
+  
+  
+  
+
 }
 
 
@@ -201,7 +226,7 @@ public class region1 {
     
     
     float interval= (height/2)/6; //   SAME as GuideLines algorithm :: Factor for converting Voltage on graph ( IE 4.5 to say 200 pixels for Y) )
-    ellipse(rXval_1, (height/2) -(i*interval), height/100, height/100); // height/100 = 5 on Development size
+    ellipse(rXval_1, (height/2) -(i*interval), 1,1);//height/100, height/100); // height/100 = 5 on Development size
     rXval_1 = rXval_1 + graphSpeed;//1;
     
   }
@@ -219,7 +244,7 @@ public class region1 {
             stroke(100); //grey
            line(0,i,width/2,i);
            i = i -interval; }
-          }  
+  }  
      
  
   
@@ -342,6 +367,82 @@ void createBar(int BarNumber, float i, float maxVal,int inputDecplace, int maxDe
     }
 }
 
+
+
+
+
+public class region3 {
+
+ 
+void boolBrick(int brickNo, boolean condition, String textContent){
+   stroke(255);
+   strokeWeight(2);
+   noFill();
+   
+   float xStart = .02 *width;
+   float xWidth= .05 * width;
+   float yLength = .05 *height;
+   float backingRectY= .08 * height;
+    
+    if (brickNo < 5) {
+      // -- Refresh
+          float horizonLine = height/2;
+         noStroke();
+         fill(0);
+         rect(0, horizonLine + xStart + ( (yLength *1.5) *brickNo) -5,width/4,  backingRectY);
+         // -- ******
+         
+         fill(0);
+         stroke(255);
+         rect(xStart, horizonLine + xStart + ( (yLength *1.5) *brickNo), xWidth, yLength);
+         
+         fill(255);
+         text(textContent, xStart + xWidth + 5, horizonLine + xStart + ( (yLength *1.5) *brickNo) + (.025 * height)); // (.025 * height) { offset }
+         
+            if (condition == true){
+                fill(255);
+                stroke(0);
+                rect(xStart, horizonLine + xStart + ( (yLength *1.5) *brickNo), xWidth, yLength);
+                } 
+        }
+    
+    
+      if (brickNo > 4) {
+           brickNo = brickNo -5; // -- Deals multiplication issue
+           
+           // -- Refresh
+           noStroke();
+           fill(0);
+           float horizonLine = height/2;
+           rect(width/4, (horizonLine + xStart + ( (yLength *1.5) *brickNo)) -5, width/4, backingRectY);
+           // -- ******
+           
+           fill(0);
+           stroke(255);
+           rect((width/4) +xStart, horizonLine + xStart + ( (yLength *1.5) *brickNo), xWidth, yLength);
+           
+            fill(255);
+            text(textContent, (width/4) +xStart +xWidth +5, horizonLine + xStart + ( (yLength *1.5) *brickNo) + (.025 * height) );
+          
+               if (condition == true){
+                fill(255);
+                stroke(0);
+                rect((width/4) +xStart, horizonLine + xStart + ( (yLength *1.5) *brickNo), xWidth, yLength);
+                }
+              
+           
+        }
+
+  }
+  
+  
+  void refresh(){
+    fill(255,0,0);
+    rect(0,height/2,width/2,height/2);
+  }
+
+
+}
 
 
 

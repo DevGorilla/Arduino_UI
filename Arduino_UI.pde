@@ -4,6 +4,7 @@
 region1 r1 = new region1(); 
 region2 r2 = new region2();
 region3 r3 = new region3();
+region4 r4 = new region4();
 // *** *** *** *** *** ***
 
 float rXval_1;
@@ -37,7 +38,7 @@ r1.highAlert= 5.0;
 r1.lowAlert= 3.2;
 r1.graphSpeed=1;
 
-float inpt = 3.35;//random(4.75,5.2); // Tester
+float inpt = random(3.300,3.330); // Tester
 r1.input(inpt);
 
 
@@ -60,150 +61,65 @@ r2.createBar(0,test,600,2,0);
 r2.createBar(1,test,700,2,0); //int BarNumber, float i, float maxVal,int inputDecplace, int maxDecPlace)
 r2.createBar(2,test,800,2,0);
 r2.createBar(3,test,900,2,0);
-r2.createBar(4,test,1000,2,0);
-r2.createBar(5,test,1100,2,0);
-r2.createBar(6,test,1200,2,0);
+
+float test1 = random(900,901.5000000000);
+r2.createBar(4,test1,1000,2,0);
+r2.createBar(5,test1,1100,2,0);
+r2.createBar(6,test1,1200,2,0);
 
 
 r2.textContent("        SENSOR READINGS");
 
-r3.test(9, false);
-r3.test(8, true);
-r3.test(7, true);
-r3.test(6, false);
-r3.test(5, true);
+r3.boolBrick(9, false,"test 123");
+r3.boolBrick(7, true,"test 123");
+r3.boolBrick(5, true,"TestSwitch 04");
+r3.boolBrick(4, true,"TestSwitch 03");
+r3.boolBrick(2, false,"TestSwitch 02");
+r3.boolBrick(0, true,"TestSwitch 01");
 
-r3.test(4, true);
-r3.test(3, true);
-r3.test(2, false);
-r3.test(1, true);
-r3.test(0, true);
-
-//r3.boolBrick(1);
-
+r4.test();
 
 // *** *** *** *** *** *** ***
 centerGuideLines(127,255,0);
 }
 
 
-public class region3 {
 
+
+public class region4{
+
+ float midVertLine = width/2;
+ float midHorizonline= height/2;
+ 
+ void test(){
+ 
+   noStroke();
+  fill(255,0,0);
+  rect(width/2,height/2,width/2,height/4);
+  fill(0);
+  rect(width/2,height *.75,width/2,height/4);
  
   
+ }
   
   
-void test(int brickNo, boolean condition){
+
   
-    // debug
-      stroke(255,0,0);
-      line(width/4, height/2,width/4,height);
-    // ***
-
-   stroke(255);
-   strokeWeight(2);
-   noFill();
-   
-   float xStart = .02 *width;
-   float xWidth= .05 * width;
-   float yLength = .05 *height;
-   float backingRectY= .08 * height;
-    
-    
-    
-    if (brickNo < 5) {
-      // -- Refresh
-          float horizonLine = height/2;
-         noStroke();
-         fill(0);
-         rect(0, horizonLine + xStart + ( (yLength *1.5) *brickNo) -5,width/4,  backingRectY);
-         // -- ******
-         
-
-         fill(0);
-         stroke(255);
-         rect(xStart, horizonLine + xStart + ( (yLength *1.5) *brickNo), xWidth, yLength);
-         
-         
-         
-            if (condition == true){
-                fill(255);
-                stroke(0);
-                rect(xStart, horizonLine + xStart + ( (yLength *1.5) *brickNo), xWidth, yLength);
-                }
-              
-                   
-        }
-    
-    
-      if (brickNo > 4) {
-           brickNo = brickNo -5; // -- Deals multiplication issue
-           
-           // -- Refresh
-           noStroke();
-           fill(0);
-           float horizonLine = height/2;
-           rect(width/4, (horizonLine + xStart + ( (yLength *1.5) *brickNo)) -5, width/4, backingRectY);
-           // -- ******
-           
-          
-           fill(0);
-           stroke(255);
-           rect((width/4) +xStart, horizonLine + xStart + ( (yLength *1.5) *brickNo), xWidth, yLength);
-           
-         
-
-               if (condition == true){
-                fill(255);
-                stroke(0);
-                rect((width/4) +xStart, horizonLine + xStart + ( (yLength *1.5) *brickNo), xWidth, yLength);
-                }
-              
-           
-        }
-    
-
-
-   
-   
-   
   
-   
-   
+  void refreshTotal(){
   
-    
- 
-   
+    fill(0,0,0);
+    rect(width/2,height/2,width/2,height/2);
   
   }
   
   
   
-  
-  void boolBrick(int brickNo,  boolean condition){
-  
-  
-    
-    
-    
-  
-  
-  }
-  
-  
-  
-  
-  
-  void refresh(){
-    fill(255,0,0);
-    rect(0,height/2,width/2,height/2);
-  }
-
-
-
-
 
 }
+
+
+
 
 
 

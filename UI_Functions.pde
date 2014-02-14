@@ -89,7 +89,7 @@ public class region1 {
     
     
     float interval= (height/2)/6; //   SAME as GuideLines algorithm :: Factor for converting Voltage on graph ( IE 4.5 to say 200 pixels for Y) )
-    ellipse(rXval_1, (height/2) -(i*interval), height/100, height/100); // height/100 = 5 on Development size
+    ellipse(rXval_1, (height/2) -(i*interval), 1,1);//height/100, height/100); // height/100 = 5 on Development size
     rXval_1 = rXval_1 + graphSpeed;//1;
     
   }
@@ -107,7 +107,7 @@ public class region1 {
             stroke(100); //grey
            line(0,i,width/2,i);
            i = i -interval; }
-          }  
+  }  
      
  
   
@@ -230,6 +230,82 @@ void createBar(int BarNumber, float i, float maxVal,int inputDecplace, int maxDe
     }
 }
 
+
+
+
+
+public class region3 {
+
+ 
+void boolBrick(int brickNo, boolean condition, String textContent){
+   stroke(255);
+   strokeWeight(2);
+   noFill();
+   
+   float xStart = .02 *width;
+   float xWidth= .05 * width;
+   float yLength = .05 *height;
+   float backingRectY= .08 * height;
+    
+    if (brickNo < 5) {
+      // -- Refresh
+          float horizonLine = height/2;
+         noStroke();
+         fill(0);
+         rect(0, horizonLine + xStart + ( (yLength *1.5) *brickNo) -5,width/4,  backingRectY);
+         // -- ******
+         
+         fill(0);
+         stroke(255);
+         rect(xStart, horizonLine + xStart + ( (yLength *1.5) *brickNo), xWidth, yLength);
+         
+         fill(255);
+         text(textContent, xStart + xWidth + 5, horizonLine + xStart + ( (yLength *1.5) *brickNo) + (.025 * height)); // (.025 * height) { offset }
+         
+            if (condition == true){
+                fill(255);
+                stroke(0);
+                rect(xStart, horizonLine + xStart + ( (yLength *1.5) *brickNo), xWidth, yLength);
+                } 
+        }
+    
+    
+      if (brickNo > 4) {
+           brickNo = brickNo -5; // -- Deals multiplication issue
+           
+           // -- Refresh
+           noStroke();
+           fill(0);
+           float horizonLine = height/2;
+           rect(width/4, (horizonLine + xStart + ( (yLength *1.5) *brickNo)) -5, width/4, backingRectY);
+           // -- ******
+           
+           fill(0);
+           stroke(255);
+           rect((width/4) +xStart, horizonLine + xStart + ( (yLength *1.5) *brickNo), xWidth, yLength);
+           
+            fill(255);
+            text(textContent, (width/4) +xStart +xWidth +5, horizonLine + xStart + ( (yLength *1.5) *brickNo) + (.025 * height) );
+          
+               if (condition == true){
+                fill(255);
+                stroke(0);
+                rect((width/4) +xStart, horizonLine + xStart + ( (yLength *1.5) *brickNo), xWidth, yLength);
+                }
+              
+           
+        }
+
+  }
+  
+  
+  void refresh(){
+    fill(255,0,0);
+    rect(0,height/2,width/2,height/2);
+  }
+
+
+}
 
 
 
