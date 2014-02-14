@@ -34,6 +34,28 @@ String regionTextLengthCheck(String input)
 }
 
 
+void centerGuideLines(float red, float green, float blue){
+    stroke(red,green,blue); //Green
+    strokeWeight(2);
+    line(width/2,0,width/2,height); //   Vertical 
+    line(0,height/2,width,height/2); //  Horizontal
+}
+
+
+
+
+ String display_decPlace(float F, int dd){
+   String modString = "";
+    if (dd == 0){modString = String.format("%.0f", F);}
+    if (dd == 1){modString = String.format("%.1f", F);}
+    if (dd == 2){modString = String.format("%.2f", F);}
+    if (dd == 3){modString = String.format("%.3f", F);}
+    if (dd == 4){modString = String.format("%.4f", F);}
+    if (dd == 5){modString = String.format("%.5f", F);}
+   return modString;
+  }
+  
+  
 
 
 // # REGION ****** ****** ****** REGION CLASSES ****** ****** ****** ******
@@ -47,7 +69,7 @@ public class region1 {
   
   void input(float i){ //must be a value 0-5 for voltage
   // Reset if @ Right side
-    if (rXval_1 == width/2){
+    if (rXval_1 == width/2 - (height/100)){
         rXval_1 = 0;
         refresh();
       }
@@ -98,7 +120,7 @@ public class region1 {
    
       //Sets guideline Bars Region 1
     drawGraphLines();
-  }
+    }
   
   
 
@@ -110,9 +132,105 @@ public class region1 {
     fill(255);
     sInput = regionTextLengthCheck(sInput); //Returns a modified string, trimmed to length
     text(sInput,5,13); 
-  }
+    }
   
   
 }
+
+
+
+
+
+public class region2 {
+   String InputString; // For Display
+   String TotalString;
+   // ******************* 
+    
+   float rectInterval;
+   float rectY_start;
+   float rectLength;
+   float rectWidth;  // +20 to account for width of rect
+   float startingX;   
+  
+  
+  void initialize(){
+    // # Constants
+      rectInterval = 40;
+      rectY_start =(height/2) *.15 ;
+      rectLength = height *.35;
+      rectWidth = 20;  // +20 to account for width of rect
+      startingX = (width /2)+ rectInterval;   
+      
+      //fill(0);
+      //noStroke();
+      rect(width/2,0,width/2,height/2);
+    // *** *** *** 
+    }
+  
+  
+   //Alarm Values for Bars 
+    float alarmLow = -1;
+    float alarmHigh = -1;
+    
+void createBar(int BarNumber, float i, float maxVal,int inputDecplace, int maxDecPlace){ 
+  
+   // REFRESH BACKGROUND RECTANGLE
+     fill(0);//255,0,0);
+     noStroke();
+     rect((startingX   + (rectWidth * BarNumber) + (rectInterval * BarNumber) ) -10 ,rectY_start -19,rectWidth *3,rectLength *1.20); //32
+   // *** *** ***
+    
+   // WHITE Rectangle
+     stroke(255);
+     fill(255);
+     
+         // Sets Alarm Values if Not user Defined, or User Error ( -1)
+         if (alarmLow == -1 || alarmHigh== -1){
+             alarmLow = 0;
+             alarmHigh = maxVal;
+           }
+     
+         if ( i > alarmHigh || i < alarmLow){
+               stroke(255,0,0);
+               fill(255,0,0);
+           }
+     rect(startingX  + (rectWidth * BarNumber) + (rectInterval * BarNumber), rectY_start,rectWidth,rectLength);
+   //*** *** ***
+    
+   //Reveal Rectangle
+      float ratio = rectLength/maxVal;
+      float inputPixel= i*ratio;
+      stroke(0);
+      fill(100);
+      rect(startingX  + (rectWidth * BarNumber) + (rectInterval * BarNumber), rectY_start,rectWidth, rectLength-inputPixel);
+   //*** *** ***
+      
+   // TEXT
+     fill(255);
+     InputString = display_decPlace(i,inputDecplace); 
+     TotalString = display_decPlace(maxVal,maxDecPlace);
+     text(TotalString, startingX  + (rectWidth * BarNumber) + (rectInterval * BarNumber) - 5,rectY_start -8 ); // Max Value
+     text(InputString, startingX  + (rectWidth * BarNumber) + (rectInterval * BarNumber) - 5,rectY_start + rectLength + 12); // input
+   // *** *** ***
+   
+   } // #end CreateBar
+  
+  
+  
+ // works
+  void textContent(String sInput){ 
+    //BLACK BAR BEHIND TEXT
+    noStroke();
+    fill(0);
+    rect((width/2) -3,3,(width/2) -3,15);
+    
+    fill(255);
+    sInput = regionTextLengthCheck(sInput); //Returns a modified string, trimmed to length
+    text(sInput,(width/2) +5,13);
+    }
+}
+
+
+
 
 // # END REGION

@@ -1,6 +1,10 @@
 
-region1 r1 = new region1();
+
+// Class Object Delcarations
+region1 r1 = new region1(); 
 region2 r2 = new region2();
+region3 r3 = new region3();
+// *** *** *** *** *** ***
 
 float rXval_1;
 int cycleCnt;
@@ -9,18 +13,13 @@ int test= 0;
 
 void setup()
 { 
-size(1000,500); // Must be divisable by 5
-background(0);
+  size(1000,500); // Must be divisable by 5
+  //background(0);
 
+  centerGuideLines(127,255,0);
 
-stroke(127,255,0); //Green
-strokeWeight(2);
-line(width/2,0,width/2,height); //   Vertical 
-line(0,height/2,width,height/2); //  Horizontal
-
-
-r1.refresh();
-
+  r1.refresh();
+  r2.initialize(); // Initializes Constant Values
 
 }
 
@@ -33,8 +32,6 @@ void draw()
 
 stroke(127,255,0); //Green
 strokeWeight(2);
-
-
 
 r1.highAlert= 5.0;
 r1.lowAlert= 3.2;
@@ -50,115 +47,171 @@ String formatted_Inpt = String.format("%.2f", inpt);
 
 r1.textContent(formatted_Inpt + " v");
 
+fill(255);
+stroke(255);
+
+  
+float test = random(450,455);
+
+r2.alarmLow= 100;
+r2.alarmHigh = 500;
+
+r2.createBar(0,test,600,2,0);
+r2.createBar(1,test,700,2,0); //int BarNumber, float i, float maxVal,int inputDecplace, int maxDecPlace)
+r2.createBar(2,test,800,2,0);
+r2.createBar(3,test,900,2,0);
+r2.createBar(4,test,1000,2,0);
+r2.createBar(5,test,1100,2,0);
+r2.createBar(6,test,1200,2,0);
 
 
-//r2.refresh();
-r2.textContent("Under Construction");
+r2.textContent("        SENSOR READINGS");
+
+r3.test(9, false);
+r3.test(8, true);
+r3.test(7, true);
+r3.test(6, false);
+r3.test(5, true);
+
+r3.test(4, true);
+r3.test(3, true);
+r3.test(2, false);
+r3.test(1, true);
+r3.test(0, true);
+
+//r3.boolBrick(1);
 
 
+// *** *** *** *** *** *** ***
+centerGuideLines(127,255,0);
+}
 
 
+public class region3 {
 
+ 
+  
+  
+  
+void test(int brickNo, boolean condition){
+  
+    // debug
+      stroke(255,0,0);
+      line(width/4, height/2,width/4,height);
+    // ***
 
-
-
-
- float rectInterval = 20;
- float rectY_start =(height/2) *.1 ;
- float rectLength = height *.40;
- float rectWidth = 20;  // +20 to account for width of rect
- float startingX = (width/2) + rectInterval;   
+   stroke(255);
+   strokeWeight(2);
+   noFill();
+   
+   float xStart = .02 *width;
+   float xWidth= .05 * width;
+   float yLength = .05 *height;
+   float backingRectY= .08 * height;
     
     
- stroke(255,0,0);
- //DEBUG
- line(width/2,(height/2) - 25,width,(height/2) - 25);
- noStroke();
     
-    
-    // Hard Code 11, Function for each Rectangle input. set r2.bar1 = true to make appear
-    
- rect(startingX  + (rectWidth * 0) + (rectInterval * 0), rectY_start,rectWidth,rectLength);
-// *** 1
- rect(startingX  + (rectWidth * 1) + (rectInterval * 1), rectY_start,rectWidth,rectLength);
-// *** 2
- rect(startingX  + (rectWidth * 2) + (rectInterval * 2), rectY_start,rectWidth,rectLength);
+    if (brickNo < 5) {
+      // -- Refresh
+          float horizonLine = height/2;
+         noStroke();
+         fill(0);
+         rect(0, horizonLine + xStart + ( (yLength *1.5) *brickNo) -5,width/4,  backingRectY);
+         // -- ******
+         
 
-int myI = 0;
-while (myI < 12)
-{
-rect(startingX  + (rectWidth * myI) + (rectInterval * myI), rectY_start,rectWidth,rectLength);
-myI = myI +1;
+         fill(0);
+         stroke(255);
+         rect(xStart, horizonLine + xStart + ( (yLength *1.5) *brickNo), xWidth, yLength);
+         
+         
+         
+            if (condition == true){
+                fill(255);
+                stroke(0);
+                rect(xStart, horizonLine + xStart + ( (yLength *1.5) *brickNo), xWidth, yLength);
+                }
+              
+                   
+        }
+    
+    
+      if (brickNo > 4) {
+           brickNo = brickNo -5; // -- Deals multiplication issue
+           
+           // -- Refresh
+           noStroke();
+           fill(0);
+           float horizonLine = height/2;
+           rect(width/4, (horizonLine + xStart + ( (yLength *1.5) *brickNo)) -5, width/4, backingRectY);
+           // -- ******
+           
+          
+           fill(0);
+           stroke(255);
+           rect((width/4) +xStart, horizonLine + xStart + ( (yLength *1.5) *brickNo), xWidth, yLength);
+           
+         
+
+               if (condition == true){
+                fill(255);
+                stroke(0);
+                rect((width/4) +xStart, horizonLine + xStart + ( (yLength *1.5) *brickNo), xWidth, yLength);
+                }
+              
+           
+        }
+    
+
+
+   
+   
+   
+  
+   
+   
+  
+    
+ 
+   
+  
+  }
+  
+  
+  
+  
+  void boolBrick(int brickNo,  boolean condition){
+  
+  
+    
+    
+    
+  
+  
+  }
+  
+  
+  
+  
+  
+  void refresh(){
+    fill(255,0,0);
+    rect(0,height/2,width/2,height/2);
+  }
+
+
+
+
+
 }
 
 
 
 
 
-// CENTER GUIDELINES
-stroke(127,255,0); //Green
-strokeWeight(2);
-line(width/2,0,width/2,height); //   Vertical 
-line(0,height/2,width,height/2); //  Horizontal
-}
 
 
  
-
-// INCOMPLETE!!!
-public class region2 {
-  
-  
-  void input(float i){ //must be a value 0-5 for voltage
-    
-  
-    
-  }
-  
-  
-
-  
-  
-  
-  
-  
-   // WORKS!
-  void refresh(){
-  
-    fill(0);
-    noStroke();
-    rect(width/2,0,width/2,height/2);
-    stroke(127,255,0); //Green
-   
-      //Sets guideline Bars Region 1
-    float interval= (height/2)/5;
-    float i = interval;
-    int lvl = height/4;
-    strokeWeight(1);
-    
-        while (i < height/2 ){
-           line(0,i,width/2,i);
-           i = i +interval;
-          } 
-  }
-  
-  
- // works
-  void textContent(String sInput){ 
-    //BLACK BAR BEHIND TEXT
-    noStroke();
-    fill(0);
-    rect((width/2) -3,3,(width/2) -3,15);
-    
-    fill(255);
-    sInput = regionTextLengthCheck(sInput); //Returns a modified string, trimmed to length
-    text(sInput,(width/2) +5,13);
-  }
-
-
-}
-
-
 
 
 
